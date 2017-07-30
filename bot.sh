@@ -21,6 +21,12 @@ then
   exit 1
 fi
 
+if [ -z "$OUTFILE" ]
+then
+  echo "Error: outfile not defined."
+  exit 2
+fi
+
 if [ -z "$UNKNOWN" ]
 then
   UNKNOWN="Expenses:Unknown"
@@ -41,4 +47,4 @@ flip_neg='s/-\$/\$-/g'
 double_comment='s/^    ;/    ;;/'
 empty_line='/^$/d'
 
-ledger-autosync -l $FILE --unknown-account "$UNKNOWN" | sed "$flip_neg" | sed "$double_comment" | sed "$empty_line" | tag
+ledger-autosync -l $FILE --unknown-account "$UNKNOWN" | sed "$flip_neg" | sed "$double_comment" | sed "$empty_line" | tag >> $OUTFILE
