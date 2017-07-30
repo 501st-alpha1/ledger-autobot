@@ -26,9 +26,19 @@ then
   UNKNOWN="Expenses:Unknown"
 fi
 
+# Optionally allow adding given tag/value to all transactions.
+tag='/[0-9][0-9][0-9][0-9]\/[0-9][0-9]\/[0-9][0-9].*/a\ \ \ \ ;; '$TAG': '$TAGVAL
+function tag() {
+  if [ -z "$TAG" ] || [ -z "$TAGVAL" ]
+  then
+    cat
+  else
+    sed "$tag"
+  fi
+}
+
 flip_neg='s/-\$/\$-/g'
 double_comment='s/^    ;/    ;;/'
 empty_line='/^$/d'
-tag='/[0-9][0-9][0-9][0-9]\/[0-9][0-9]\/[0-9][0-9].*/a\ \ \ \ ;; '$TAG': '$TAGVAL
 
-ledger-autosync -l $FILE --unknown-account "$UNKNOWN" | sed "$flip_neg" | sed "$double_comment" | sed "$empty_line" | sed "$tag"
+ledger-autosync -l $FILE --unknown-account "$UNKNOWN" | sed "$flip_neg" | sed "$double_comment" | sed "$empty_line" | tag
