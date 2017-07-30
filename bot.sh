@@ -47,6 +47,14 @@ flip_neg='s/-\$/\$-/g'
 double_comment='s/^    ;/    ;;/'
 empty_line='/^$/d'
 
+git rev-parse autobot-updates --
+if [ "$?" != "0" ]
+then
+  git checkout -b autobot-updates
+  git push --set-upstream origin autobot-updates
+  git config --bool branch.autobot-updates.sync true
+fi
+
 git checkout autobot-updates
 
 ledger-autosync -l $FILE --unknown-account "$UNKNOWN" | sed "$flip_neg" | sed "$double_comment" | sed "$empty_line" | tag >> $OUTFILE
