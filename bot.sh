@@ -47,4 +47,8 @@ flip_neg='s/-\$/\$-/g'
 double_comment='s/^    ;/    ;;/'
 empty_line='/^$/d'
 
+git checkout autobot-updates
+
 ledger-autosync -l $FILE --unknown-account "$UNKNOWN" | sed "$flip_neg" | sed "$double_comment" | sed "$empty_line" | tag >> $OUTFILE
+
+git-sync
