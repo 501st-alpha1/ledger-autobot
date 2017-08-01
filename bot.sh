@@ -53,9 +53,9 @@ then
   git checkout -b autobot-updates
   git push --set-upstream origin autobot-updates
   git config --bool branch.autobot-updates.sync true
+else
+  git checkout autobot-updates
 fi
-
-git checkout autobot-updates
 
 ledger-autosync -l $FILE --unknown-account "$UNKNOWN" | sed "$flip_neg" | sed "$double_comment" | sed "$empty_line" | tag >> $OUTFILE
 
