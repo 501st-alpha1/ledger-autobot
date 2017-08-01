@@ -53,6 +53,7 @@ then
   git checkout -b autobot-updates
   git push --set-upstream origin autobot-updates
   git config --bool branch.autobot-updates.sync true
+  git config branch.autobot-updates.syncCommitMsg 'Autobot commit on $(date)'
 else
   git checkout autobot-updates
 fi
