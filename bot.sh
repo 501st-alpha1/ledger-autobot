@@ -58,6 +58,6 @@ else
   git checkout autobot-updates
 fi
 
-ledger-autosync -l $FILE --unknown-account "$UNKNOWN" | sed "$flip_neg" | sed "$double_comment" | sed "$empty_line" | tag >> $OUTFILE
+ledger-autosync --ledger $FILE --unknown-account "$UNKNOWN" | sed "$flip_neg" | sed "$double_comment" | sed "$empty_line" | tag >> $OUTFILE
 
 git-sync
